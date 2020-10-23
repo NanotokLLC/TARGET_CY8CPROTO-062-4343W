@@ -4,11 +4,13 @@
 * Description:
 * Clock configuration
 * This file was automatically generated and should not be modified.
-* cfg-backend-cli: 1.2.0.1483
-* Device Support Library (libs/psoc6pdl): 1.6.0.4266
+* Tools Package 2.2.0.2801
+* psoc6pdl 1.6.1.4886
+* personalities_2.0 2.0.0.0
+* udd 1.2.0.473
 *
 ********************************************************************************
-* Copyright 2017-2019 Cypress Semiconductor Corporation
+* Copyright 2020 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,21 +29,81 @@
 #include "cycfg_clocks.h"
 
 #if defined (CY_USING_HAL)
-	const cyhal_resource_inst_t CYBSP_CSD_CLK_DIV_obj =
+	const cyhal_resource_inst_t USB_CONS_CLK_DIV_obj = 
+	{
+		.type = CYHAL_RSC_CLOCK,
+		.block_num = USB_CONS_CLK_DIV_HW,
+		.channel_num = USB_CONS_CLK_DIV_NUM,
+	};
+#endif //defined (CY_USING_HAL)
+#if defined (CY_USING_HAL)
+	const cyhal_resource_inst_t RTOS_CLK_DIV_obj = 
+	{
+		.type = CYHAL_RSC_CLOCK,
+		.block_num = RTOS_CLK_DIV_HW,
+		.channel_num = RTOS_CLK_DIV_NUM,
+	};
+#endif //defined (CY_USING_HAL)
+#if defined (CY_USING_HAL)
+	const cyhal_resource_inst_t CYBSP_CSD_CLK_DIV_obj = 
 	{
 		.type = CYHAL_RSC_CLOCK,
 		.block_num = CYBSP_CSD_CLK_DIV_HW,
 		.channel_num = CYBSP_CSD_CLK_DIV_NUM,
 	};
 #endif //defined (CY_USING_HAL)
+#if defined (CY_USING_HAL)
+	const cyhal_resource_inst_t UART_CLK_DIV_obj = 
+	{
+		.type = CYHAL_RSC_CLOCK,
+		.block_num = UART_CLK_DIV_HW,
+		.channel_num = UART_CLK_DIV_NUM,
+	};
+#endif //defined (CY_USING_HAL)
+#if defined (CY_USING_HAL)
+	const cyhal_resource_inst_t ADC_SPI_CLK_DIV_obj = 
+	{
+		.type = CYHAL_RSC_CLOCK,
+		.block_num = ADC_SPI_CLK_DIV_HW,
+		.channel_num = ADC_SPI_CLK_DIV_NUM,
+	};
+#endif //defined (CY_USING_HAL)
 
 
 void init_cycfg_clocks(void)
 {
+	Cy_SysClk_PeriphDisableDivider(CY_SYSCLK_DIV_16_BIT, 0U);
+	Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_16_BIT, 0U, 499U);
+	Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_16_BIT, 0U);
+#if defined (CY_USING_HAL)
+	cyhal_hwmgr_reserve(&USB_CONS_CLK_DIV_obj);
+#endif //defined (CY_USING_HAL)
+
+	Cy_SysClk_PeriphDisableDivider(CY_SYSCLK_DIV_16_5_BIT, 0U);
+	Cy_SysClk_PeriphSetFracDivider(CY_SYSCLK_DIV_16_5_BIT, 0U, 30U, 8U);
+	Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_16_5_BIT, 0U);
+#if defined (CY_USING_HAL)
+	cyhal_hwmgr_reserve(&RTOS_CLK_DIV_obj);
+#endif //defined (CY_USING_HAL)
+
 	Cy_SysClk_PeriphDisableDivider(CY_SYSCLK_DIV_8_BIT, 0U);
-	Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_8_BIT, 0U, 255U);
+	Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_8_BIT, 0U, 127U);
 	Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_8_BIT, 0U);
 #if defined (CY_USING_HAL)
 	cyhal_hwmgr_reserve(&CYBSP_CSD_CLK_DIV_obj);
+#endif //defined (CY_USING_HAL)
+
+	Cy_SysClk_PeriphDisableDivider(CY_SYSCLK_DIV_8_BIT, 1U);
+	Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_8_BIT, 1U, 30U);
+	Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_8_BIT, 1U);
+#if defined (CY_USING_HAL)
+	cyhal_hwmgr_reserve(&UART_CLK_DIV_obj);
+#endif //defined (CY_USING_HAL)
+
+	Cy_SysClk_PeriphDisableDivider(CY_SYSCLK_DIV_8_BIT, 2U);
+	Cy_SysClk_PeriphSetDivider(CY_SYSCLK_DIV_8_BIT, 2U, 0U);
+	Cy_SysClk_PeriphEnableDivider(CY_SYSCLK_DIV_8_BIT, 2U);
+#if defined (CY_USING_HAL)
+	cyhal_hwmgr_reserve(&ADC_SPI_CLK_DIV_obj);
 #endif //defined (CY_USING_HAL)
 }

@@ -511,7 +511,7 @@ extern "C" {
 *        <i>(USER SETTING)</i>
 *******************************************************************************/
 #if !defined (CY_CORTEX_M4_APPL_ADDR)
-    #define CY_CORTEX_M4_APPL_ADDR          (CY_FLASH_BASE + 0x2000U)   /* <<< 8 kB of flash is reserved for the Cortex-M0+ application */
+    #define CY_CORTEX_M4_APPL_ADDR          (CY_FLASH_BASE + 0x23000U)
 #endif /* (CY_CORTEX_M4_APPL_ADDR) */
 
 

@@ -4,11 +4,13 @@
 * Description:
 * Establishes all necessary connections between hardware elements.
 * This file was automatically generated and should not be modified.
-* cfg-backend-cli: 1.2.0.1483
-* Device Support Library (libs/psoc6pdl): 1.6.0.4266
+* Tools Package 2.2.0.2801
+* psoc6pdl 1.6.1.4886
+* personalities_2.0 2.0.0.0
+* udd 1.2.0.473
 *
 ********************************************************************************
-* Copyright 2017-2019 Cypress Semiconductor Corporation
+* Copyright 2020 Cypress Semiconductor Corporation
 * SPDX-License-Identifier: Apache-2.0
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,16 +28,12 @@
 
 #include "cycfg_routing.h"
 
-#include "cy_device_headers.h"
+#include "cy_trigmux.h"
+
+#include "stdbool.h"
 
 void init_cycfg_routing(void)
 {
-	HSIOM->AMUX_SPLIT_CTL[2] = HSIOM_V2_AMUX_SPLIT_CTL_SWITCH_AA_SL_Msk |
-		HSIOM_V2_AMUX_SPLIT_CTL_SWITCH_AA_SR_Msk |
-		HSIOM_V2_AMUX_SPLIT_CTL_SWITCH_BB_SL_Msk |
-		HSIOM_V2_AMUX_SPLIT_CTL_SWITCH_BB_SR_Msk;
-	HSIOM->AMUX_SPLIT_CTL[4] = HSIOM_V2_AMUX_SPLIT_CTL_SWITCH_AA_SL_Msk |
-		HSIOM_V2_AMUX_SPLIT_CTL_SWITCH_AA_SR_Msk |
-		HSIOM_V2_AMUX_SPLIT_CTL_SWITCH_BB_SL_Msk |
-		HSIOM_V2_AMUX_SPLIT_CTL_SWITCH_BB_SR_Msk;
+	Cy_TrigMux_Select(TRIG_OUT_1TO1_0_SCB2_RX_TO_PDMA0_TR_IN21, false, TRIGGER_TYPE_LEVEL);
+	Cy_TrigMux_Select(TRIG_OUT_1TO1_0_SCB2_TX_TO_PDMA0_TR_IN20, false, TRIGGER_TYPE_LEVEL);
 }
